@@ -13,11 +13,17 @@ import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
 import { RouterModule, Routes } from '@angular/router';
 
-const appRoutes:Routes = [
-  {path:'', component: HomeComponent},                //this will go to localhost://4200/
-  {path:'users', component: UsersComponent},          //this will go to localhost://4200/users
-  {path:'users/:id/:name', component: UsersComponent},          //this will go to localhost://4200/users
-  {path:'servers', component: ServersComponent},      //this will go to localhost://4200/users
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },                     // this will go to localhost://4200/
+  { path: 'users', component: UsersComponent, children:[      // this will go to localhost://4200/users
+    { path: ':id/:name', component: UserComponent }          // this will go to localhost://4200/users/id/name
+  ]}          
+  ,         
+  // {path:'servers', component: ServersComponent},           
+  { path: 'servers', component: ServersComponent, children: [ // this will go to localhost://4200/servers
+      { path: ':id/edit', component: EditServerComponent },   // this will go to localhost://4200/servers/id/edit
+      { path: ':id', component: ServerComponent }             // this will go to localhost://4200/servers/id
+  ]},
 ]
 @NgModule({
   declarations: [
