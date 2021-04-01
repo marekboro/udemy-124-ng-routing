@@ -8,6 +8,7 @@ import { EditServerComponent } from './servers/edit-server/edit-server.component
 import { ServerComponent } from './servers/server/server.component';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from './auth-guard.service';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },                     // this will go to localhost://4200/
@@ -16,7 +17,12 @@ const appRoutes: Routes = [
       // { path:'**', redirectTo:'/not-found', pathMatch:'full'}
     ]}          
     ,                 
-    { path: 'servers', component: ServersComponent, children: [ // this will go to localhost://4200/servers
+    {
+        path: 'servers',
+        // canActivate:[AuthGuard],
+        canActivateChild:[AuthGuard],
+        component: ServersComponent,
+            children: [ // this will go to localhost://4200/servers
         { path: ':id/edit', component: EditServerComponent },   // this will go to localhost://4200/servers/id/edit
         { path: ':id', component: ServerComponent },             // this will go to localhost://4200/servers/id
         // {path:'**', redirectTo:'/not-found', pathMatch:'full'}
