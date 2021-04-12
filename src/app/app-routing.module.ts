@@ -9,6 +9,8 @@ import { ServerComponent } from './servers/server/server.component';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './auth-guard.service';
+import { CanDeactivateGuard } from './servers/edit-server/can-deactivate-guard.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },                     // this will go to localhost://4200/
@@ -23,11 +25,12 @@ const appRoutes: Routes = [
         canActivateChild:[AuthGuard],
         component: ServersComponent,
             children: [ // this will go to localhost://4200/servers
-        { path: ':id/edit', component: EditServerComponent },   // this will go to localhost://4200/servers/id/edit
+        { path: ':id/edit', component: EditServerComponent, canDeactivate:[CanDeactivateGuard] },   // this will go to localhost://4200/servers/id/edit
         { path: ':id', component: ServerComponent },             // this will go to localhost://4200/servers/id
         // {path:'**', redirectTo:'/not-found', pathMatch:'full'}
     ]},
-    {path:'not-found', component: PageNotFoundComponent},
+    // {path:'not-found', component: PageNotFoundComponent},
+    {path:'not-found', component: ErrorPageComponent, data:{message:"Page not found"}},
     {path:'**', redirectTo:'/not-found', pathMatch:'full'}
   ]
 

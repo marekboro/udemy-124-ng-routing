@@ -20,11 +20,11 @@ export class AuthGuard implements CanActivate, CanActivateChild{
                   this.router.navigate(['/'])
                   return false;
               }
-              
+
             })
 
     }
-
+A
     canActivateChild(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
