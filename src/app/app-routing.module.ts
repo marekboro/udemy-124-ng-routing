@@ -13,6 +13,7 @@ import { CanDeactivateGuard } from './servers/edit-server/can-deactivate-guard.s
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { resolve } from 'node:path';
 import { ServerResolver } from './servers/server/server-resolver.service';
+import { Hash } from 'crypto';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },                     // this will go to localhost://4200/
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
 
 
 @NgModule({
-    imports:[ RouterModule.forRoot(appRoutes) ],
+    imports:[ RouterModule.forRoot(appRoutes ) ],
+    // imports:[ RouterModule.forRoot(appRoutes , {useHash:true} ) ],  //! useHash=true means that 
     exports:[ RouterModule ]
 })
 export class AppRoutingModule{
